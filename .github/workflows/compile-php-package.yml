@@ -1,0 +1,47 @@
+name: Compile PHYRE PHP Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      os_type:
+        description: 'OS'
+        required: true
+        default: 'ubuntu-22.04'
+        type: choice
+        options:
+          - ubuntu-22.04
+          - ubuntu-20.04
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ${{ inputs.os_type }}
+
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Compile PHP
+      run: |
+        cd compilators/debian/php
+        chmod 775 ./php-compile.sh
+        ./php-compile.sh ${{ inputs.os_type }}
+        ls -la
+
+    - uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_user_name: Cloud Vision Bot
+        commit_user_email: bobicloudvision@gmail.com
+        commit_author: Cloud Vision Bot <bobicloudvision@gmail.com>
+        commit_message: Upload compiled packages [BOT]
+        repository: ./compilators/debian/php/dist
+        #skip_checkout: true
+        #push_options: '--force'
+        #skip_fetch: true
+        #create_branch: true
+        # status_options: '--untracked-files=no'
