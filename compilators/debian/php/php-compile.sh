@@ -102,7 +102,6 @@ sudo make LIBDIR=/usr/lib/$(arch)-linux-gnu install
 				--with-zip \
 				--with-zlib \
 				--with-gmp \
-				--enable-xdebug \
 				--with-sodium \
 				--with-freetype \
 			  	--enable-sockets \
