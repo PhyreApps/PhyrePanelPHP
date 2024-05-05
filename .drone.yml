@@ -1,0 +1,45 @@
+---
+kind: pipeline
+name: CentOS
+steps:
+  - name: run php build
+    image: centos:latest
+
+    environment:
+      SSH_DEPLOY_KEY:
+        from_secret: SSH_DEPLOY_KEY
+    commands:
+      - sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+      - sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+      - yum update -y
+      - dnf -y install sudo wget
+      - sudo wget -q -O - http://www.atomicorp.com/installers/atomic | sh
+      - dnf -y install git geoip-devel perl openssl-devel gd-devel libxslt-devel zlib-devel pcre-devel rpm-build gcc make rpmdevtools rpmlint tree
+
+      - wget https://nginx.org/packages/mainline/centos/7/SRPMS/nginx-1.25.5-1.el7.ngx.src.rpm
+      - rpm -Uvh nginx-1.25.5-1.el7.ngx.src.rpm
+      - cp /drone/src/compilators/centos/nginx/phyre-nginx.spec ~/rpmbuild/SPECS/phyre-nginx.spec
+      - tree ~/rpmbuild
+      - rpmbuild -bb ~/rpmbuild/SPECS/phyre-nginx.spec
+#
+#      - mkdir ~/.ssh
+#      - touch ~/.ssh/known_hosts
+#
+#      - eval `ssh-agent -s`
+#      - echo "$SSH_DEPLOY_KEY" > ~/.ssh/id_rsa
+#      - chmod 0400 ~/.ssh/id_rsa
+#      - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+#
+#      - git config --global user.email "drone@phyrecloud.com"
+#      - git config --global user.signingkey ~/.ssh/id_rsa
+#      - mkdir /PhyrePanelNGINXGit
+#      - cd /PhyrePanelNGINXGit
+#      - git clone git@github.com:PhyreApps/PhyrePanelNGINX.git
+#      - ls -la
+#      - cd PhyrePanelNGINX
+#      - mkdir -p compilators/centos/nginx/dist
+#      - mv /root/rpmbuild/RPMS/x86_64/phyre-nginx-1.25.5-1.el8.x86_64.rpm compilators/centos/nginx/dist
+#      - git add .
+#      - git commit -m "Deploy to CentOS"
+#      - git push
+#      - echo "Deployed to CentOS"
