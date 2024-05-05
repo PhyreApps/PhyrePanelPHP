@@ -14,6 +14,7 @@ Phyre PHP for executing phyre panel
 # we have no source, so nothing here
 
 %build
+wget http://de2.php.net/distributions/php-8.2.0.tar.gz -O $RPM_SOURCE_DIR/php-8.2.0.tar.gz
 tar -xzf $RPM_SOURCE_DIR/php-8.2.0.tar.gz -C $RPM_BUILD_DIR
 cd php-8.2.0
 ./buildconf --force
@@ -22,10 +23,10 @@ cd php-8.2.0
 				--enable-fpm --with-fpm-user=phyreweb --with-fpm-group=phyreweb \
 				--with-openssl \
 				--with-mysqli \
-      				--with-pdo-mysql=mysqlnd \
-        			--with-mysqli=mysqlnd \
-		    		--with-pdo-sqlite \
-		    		--with-pdo-pgsql \
+                --with-pdo-mysql=mysqlnd \
+                --with-mysqli=mysqlnd \
+                --with-pdo-sqlite \
+                --with-pdo-pgsql \
 				--with-gettext \
 				--with-curl \
 				--enable-intl \
@@ -37,7 +38,10 @@ cd php-8.2.0
 			  	--enable-sockets \
 				--enable-mbstring \
 				--with-libdir=lib/$(arch)-linux-gnu
-php
+make -j 4
+make install
+
+/usr/local/phyre/php/bin/php -v
 %make_install
 
 wget https://raw.githubusercontent.com/PhyreApps/PhyrePanelPHP/main/compilators/debian/php/php-fpm.conf -O $RPM_BUILD_ROOT/usr/local/phyre/php/conf/php-fpm.conf
