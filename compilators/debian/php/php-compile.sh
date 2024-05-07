@@ -92,19 +92,20 @@ sudo make LIBDIR=/usr/lib/$(arch)-linux-gnu install
 				--enable-fpm --with-fpm-user=phyreweb --with-fpm-group=phyreweb \
 				--with-openssl \
 				--with-mysqli \
-      				--with-pdo-mysql=mysqlnd \
-        			--with-mysqli=mysqlnd \
-		    		--with-pdo-sqlite \
-		    		--with-pdo-pgsql \
+        --with-pdo-mysql=mysqlnd \
+        --with-mysqli=mysqlnd \
+        --with-pdo-sqlite \
+        --with-pdo-pgsql \
 				--with-gettext \
 				--with-curl \
+				--enable-pcntl \
 				--enable-intl \
 				--with-zip \
 				--with-zlib \
 				--with-gmp \
 				--with-sodium \
 				--with-freetype \
-			  	--enable-sockets \
+			  --enable-sockets \
 				--enable-mbstring \
 				--with-libdir=lib/$(arch)-linux-gnu
 
