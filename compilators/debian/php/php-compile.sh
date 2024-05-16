@@ -177,6 +177,9 @@ sudo mv /usr/local/phyre/php $PACKAGE_MAIN_DIR/usr/local/phyre
 sudo cp $MAIN_DIR/php-fpm.conf $PACKAGE_MAIN_DIR/usr/local/phyre/php/etc
 sudo mv $PACKAGE_MAIN_DIR/usr/local/phyre/php/sbin/php-fpm $PACKAGE_MAIN_DIR/usr/local/phyre/php/sbin/phyre-php-fpm
 
+# Add php.ini file
+sudo cp $MAIN_DIR/php.ini $PACKAGE_MAIN_DIR/usr/local/phyre/php/lib/php.ini
+
 # Copy debian package META file
 sudo cp $MAIN_DIR/control $PACKAGE_MAIN_DIR/DEBIAN
 sudo cp $MAIN_DIR/postinst $PACKAGE_MAIN_DIR/DEBIAN
