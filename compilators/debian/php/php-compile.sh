@@ -107,6 +107,7 @@ sudo make LIBDIR=/usr/lib/$(arch)-linux-gnu install
 				--with-freetype \
 			  --enable-sockets \
 				--enable-mbstring \
+				--enable-pcntl \
 				--with-libdir=lib/$(arch)-linux-gnu
 
 #sudo ./configure --prefix=/usr/local/phyre/php \

@@ -37,6 +37,7 @@ cd php-8.2.0
 				--with-freetype \
 			  	--enable-sockets \
 				--enable-mbstring \
+				--enable-pcntl \
 				--with-libdir=lib/$(arch)-linux-gnu
 make -j 4
 make install
