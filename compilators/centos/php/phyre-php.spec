@@ -35,9 +35,11 @@ cd php-8.2.0
 				--with-gmp \
 				--with-sodium \
 				--with-freetype \
+				--with-pear \
 			  	--enable-sockets \
 				--enable-mbstring \
 				--enable-pcntl \
+				--enable-shmop \
 				--with-libdir=lib/$(arch)-linux-gnu
 make -j 4
 make install

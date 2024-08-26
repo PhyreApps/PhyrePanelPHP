@@ -98,15 +98,20 @@ sudo make LIBDIR=/usr/lib/$(arch)-linux-gnu install
         --with-pdo-pgsql \
 				--with-gettext \
 				--with-curl \
-				--enable-pcntl \
-				--enable-intl \
 				--with-zip \
 				--with-zlib \
 				--with-gmp \
 				--with-sodium \
+				--with-pear \
+				--enable-gd \
+				--with-webp \
+				--with-jpeg \
 				--with-freetype \
 			  --enable-sockets \
+        --enable-pcntl \
+        --enable-intl \
 				--enable-mbstring \
+				--enable-shmop \
 				--enable-pcntl \
 				--with-libdir=lib/$(arch)-linux-gnu
 
